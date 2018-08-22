@@ -28,6 +28,7 @@
 	
 	<context:component-scan base-package="com.q1.blog" />
 	
-	
+	<beans:bean id="UserVo" class="com.q1.blog.vo.UserVo">
+	</beans:bean>	
 	
 </beans:beans>
