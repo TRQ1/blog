@@ -48,7 +48,7 @@
 	</insert>
  
     <select id="selectCommentList" parameterType="java.util.HashMap" resultMap="resultPostVo">
-        SELECT * FROM users LIMIT 10
+        SELECT * FROM comments LIMIT 10
     </select>
 
 </mapper>
