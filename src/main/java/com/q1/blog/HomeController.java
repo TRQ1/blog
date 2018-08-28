@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.q1.blog.vo.UserVo;
+
 /**
  * Handles requests for the application home page.
  */
@@ -37,15 +39,27 @@ public class HomeController {
 		return "home";
 	}
 	@RequestMapping(value="/", method = RequestMethod.GET)
-	public String blog() {
-		logger.info("This is a blog message");
+	public String index() {
+		logger.info("This is the blog of index message");
 		return "index";	
 	}
 
-	@RequestMapping(value="/test", method = RequestMethod.GET)
-	public String test() {
-		logger.info("This is a blog message");
-		return "index";	
+	@RequestMapping(value="/head", method = RequestMethod.GET)
+	public String head() {
+		logger.info("This is the blog of head message");
+		return "head";	
+	}
+	
+	@RequestMapping(value="/intro", method = RequestMethod.GET)
+	public String intro() {
+		logger.info("This is the blog of intro message");
+		return "intro";	
+	}
+
+	@RequestMapping(value="/footer", method = RequestMethod.GET)
+	public String footer() {
+		logger.info("This is the blog of footer message");
+		return "footer";	
 	}
 }
 	

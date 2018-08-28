@@ -10,7 +10,7 @@ public class UserVo {
 	
 	private int id;
 	private int status;
-	private String login;
+	private String loginId;
 	private String password;
 	private String nickname;
 	private String email;
@@ -33,14 +33,14 @@ public class UserVo {
 		this.status = status;
 	}
 	
-	public String getLogin() {
-		return login;
+	public String getLoginId() {
+		return loginId;
 	}
-	
-	public void setLogin(String login) {
-		this.login = login;
+
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
@@ -48,15 +48,15 @@ public class UserVo {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getNickname() {
 		return nickname;
 	}
-	
+
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}

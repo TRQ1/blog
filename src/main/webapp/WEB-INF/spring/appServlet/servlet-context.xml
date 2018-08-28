@@ -11,6 +11,11 @@
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
+	
+	<!-- the location of global.properties's file -->
+	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <beans:property name="locations" value="WEB-INF/global.properties"/>
+    </beans:bean>
 
 	<beans:bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
 
@@ -28,7 +33,45 @@
 	
 	<context:component-scan base-package="com.q1.blog" />
 	
-	<beans:bean id="UserVo" class="com.q1.blog.vo.UserVo">
-	</beans:bean>	
+	<!-- DataSource Setting -->
+	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	    <beans:property name="driverClassName" value="${jdbc.driverClassName}" />
+	    <beans:property name="url" value="${jdbc.url}" />
+	    <beans:property name="username" value="${jdbc.username}" />
+	    <beans:property name="password" value="${jdbc.password}" />
+	</beans:bean>
 	
+	<!-- TransatctionManager setting -->
+	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	    <beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+	
+	<!-- SessionFactory bean setting -->	
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	    <beans:property name="dataSource" ref="dataSource" />
+	    <beans:property name="typeAliasesPackage" value="com.q1.blog" />
+	    <beans:property name="configLocation" value="/WEB-INF/mybatis-config.xml"/>
+	    <beans:property name="mapperLocations" value="classpath*:com/q1/blog/dao/UserMapper.xml" />
+	</beans:bean>
+
+	<!-- SessionTemplate setting -->	
+	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</beans:bean>
+		
+	<beans:bean id="UserVO" class="com.q1.blog.vo.UserVo"></beans:bean>
+	<beans:bean id="UserDAO" class="com.q1.blog.dao.UserDao">
+		<beans:property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</beans:bean>
+<!--
+	<beans:bean id="PostVo" class="com.q1.blog.vo.PostVo"></beans:bean>
+	<beans:bean id="PostDao" class="com.q1.blog.dao.PostDao">
+		<beans:property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</beans:bean>
+	
+	<beans:bean id="CommentVo" class="com.q1.blog.vo.CommentVo"></beans:bean>
+	<beans:bean id="CommentDao" class="com.q1.blog.dao.CommentDao">
+		<beans:property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</beans:bean>
+-->
 </beans:beans>
