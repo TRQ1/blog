@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="User">
+    <resultMap id="resultUserVo" type="com.q1.blog.vo.UserVo">
+        <id property="id" column="id" />
+        <result property="loginId" column="loginid"/>
+        <result property="password" column="password"/>
+        <result property="nickname" column="nickname"/>
+        <result property="email" column="email" />
+        <result property="url" column="url" />
+        <result property="regDate" column="regdate"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+	<insert id="insertUser" parameterType="com.q1.blog.vo.UserVo" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO users ( 
+		 loginid
+		, password
+		, nickname
+		, email
+		, url
+		, regdate
+		, status
+		) VALUES ( 
+		
+		 #{loginId}
+		, #{password}
+		, #{nickname}
+		, #{email}
+		, #{url}
+		, now()
+		, #{status}
+		
+		)
+	</insert>
+
+    <select id="selectUserList" parameterType="java.util.HashMap" resultMap="resultUserVo">
+        SELECT * FROM users LIMIT 10
+    </select>
+
+</mapper>
