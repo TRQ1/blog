@@ -11,13 +11,14 @@ public class PostVo {
 	private Date toDate;
 	private Date toDateGmt;
 	private String content;
+	private String title;
 	private String excerpt;
 	private String status;
 	private String commentStatus;
 	private String password;
 	private String name;
-	private String modified;
-	private String modifiedGmt;
+	private Date modified;
+	private Date modifiedGmt;
 	private String type;
 
 	public int getId() {
@@ -62,6 +63,13 @@ public class PostVo {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public String getExcerpt() {
 		return excerpt;
 	}
@@ -92,16 +100,16 @@ public class PostVo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getModified() {
+	public Date getModified() {
 		return modified;
 	}
-	public void setModified(String modified) {
+	public void setModified(Date modified) {
 		this.modified = modified;
 	}
-	public String getModifiedGmt() {
+	public Date getModifiedGmt() {
 		return modifiedGmt;
 	}
-	public void setModifiedGmt(String modifiedGmt) {
+	public void setModifiedGmt(Date modifiedGmt) {
 		this.modifiedGmt = modifiedGmt;
 	}
 	public String getType() {
