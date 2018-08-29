@@ -36,7 +36,7 @@
 		, modified
 		, modified_gmt
 		, type
-		<if test="isNotEmpty(parent)">
+		<if test="parent != null and parent != ''">
 		, parent
 		</if>
 		, comment_count 
@@ -56,7 +56,7 @@
 		 , now()
 		 , #{modifiedGmt}
 		 , #{type}
-		 <if test="isNotEmpty(parent)">
+		 <if test="parent != null and parent != ''">
 		 , #{parent}
 		 </if>
 		 , #{commentCount} 
@@ -66,5 +66,14 @@
     <select id="selectPostList" parameterType="java.util.HashMap" resultMap="resultPostVo">
         SELECT * FROM posts LIMIT 10
     </select>
+  
+  	<select id="selectPostTest" parameterType="java.util.HashMap" resultMap="resultPostVo">
+    	SELECT 
+    	<if test="isNotEmpty(parent)"> 
+    		parent 
+    	</if> 
+    	name, password FROM posts
+  	</select>
+  	
 
 </mapper>

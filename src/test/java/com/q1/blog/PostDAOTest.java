@@ -22,7 +22,7 @@ public class PostDAOTest {
 
 	@Autowired
 	protected PostDao postDao;
-	
+
 	@Test
 	public void insert() throws Exception {
 		
@@ -31,7 +31,7 @@ public class PostDAOTest {
 		PostVo postVo = new PostVo();
 		postVo.setUserId(1);
 		postVo.setContent("test");
-		postVo.setToDateGmt(sdf.parse("2018-08-28 13:00:00"));
+		postVo.setToDateGmt(sdf.parse("2018-08-28 13:10:00"));
 		postVo.setExcerpt("http://test.com");
 		postVo.setStatus("publish");
 		postVo.setCommentStatus("open");
@@ -40,13 +40,23 @@ public class PostDAOTest {
 		postVo.setName("testname");
 		postVo.setTitle("testtitle");
 		postVo.setType("journal");
-		postVo.setCommentCount(1);
+		postVo.setCommentCount(3);
 		
 		postDao.insert(postVo);
 	}
 	
 	@Test
 	public void selectList() {
+		List<PostVo> postList = postDao.selectList();
+		
+		for ( PostVo postVo : postList ) {
+			System.out.println(postVo.getId());
+		}
+		
+	}
+
+	@Test
+	public void selectPostList() {
 		List<PostVo> postList = postDao.selectList();
 		
 		for ( PostVo postVo : postList ) {

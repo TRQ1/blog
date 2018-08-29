@@ -20,6 +20,11 @@ public class PostDao extends SqlSessionDaoSupport {
 	public List<PostVo> selectList() {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		return getSqlSession().selectList( "Post.selectPostList", paramMap);
-	}	
+	}
+	
+	public List<PostVo> seliectPostList() {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		return getSqlSession().selectList("Post.selectPostList", paramMap);
+	}
 	
 }

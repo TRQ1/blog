@@ -22,12 +22,12 @@
 		 user_id
 		, post_id
 		, todate
-		, todategmt
+		, todate_gmt
 		, author
 		, authror_email
 		, content
 		, type
-		<if test="parent != null">
+		<if test="parent != null and parent != ''">
 		, parent
 		</if>
 		) VALUES ( 
@@ -41,7 +41,7 @@
 		, #{authorUrl}
 		, #{content}
 		, #{type}
-		<if test="parent != null">
+		<if test="parent != null and parent != ''">
 		, #{parent}
 		</if>
 		 ) 
