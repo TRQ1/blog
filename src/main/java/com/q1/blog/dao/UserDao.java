@@ -21,4 +21,12 @@ public class UserDao extends SqlSessionDaoSupport {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		return getSqlSession().selectList( "User.selectUserList", paramMap);
 	}
+	
+	public void update(UserVo userVo) {
+		getSqlSession().update("User.updateUserInfo", userVo);
+	}
+	
+	public void delete(int id) {
+		getSqlSession().delete("User.deleteUserInfo", id);
+	}
 }

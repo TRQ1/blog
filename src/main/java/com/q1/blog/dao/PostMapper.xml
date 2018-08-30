@@ -20,7 +20,8 @@
         <result property="parent" column="parent"/>
         <result property="commentCount" column="commentcount"/>
     </resultMap>
-    
+   
+   	<!-- Post 생성 --> 
     <insert id="insertPost" parameterType="com.q1.blog.vo.PostVo" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO posts ( 
 		 user_id
@@ -63,17 +64,37 @@
 		 )
 	</insert>
 
+	<!-- Post 페이지 조회  -->
     <select id="selectPostList" parameterType="java.util.HashMap" resultMap="resultPostVo">
         SELECT * FROM posts LIMIT 10
     </select>
+    
+    
+    <!-- Post 수정   -->
+    <update id="updatePostPage" parameterType="com.q1.blog.vo.PostVo">
+    	UPDATE posts SET
+    	 password = #{password}
+    	 <if test="title != null and title != ''">
+    		, title = #{title} 
+    	 </if>
+    	 <if test="content != null and content != ''">
+    		, content = #{content} 
+    	 </if>
+    	 <if test="excerpt != null and excerpt != ''">
+    	 	, excerpt = #{excerpt}
+    	 </if>
+    	 <if test="status != null and status != ''">
+    	 	, status = #{status}
+    	 </if>
+    	, modified = now()
+    	, modified_gmt = now()
+    	WHERE id = #{id}
+    </update>
+    
+    <!-- Post 삭제  -->
+  	<delete id="deletePostPage">
+  				DELETE FROM posts WHERE id = #{id}
+  	</delete>  
   
-  	<select id="selectPostTest" parameterType="java.util.HashMap" resultMap="resultPostVo">
-    	SELECT 
-    	<if test="isNotEmpty(parent)"> 
-    		parent 
-    	</if> 
-    	name, password FROM posts
-  	</select>
-  	
 
 </mapper>

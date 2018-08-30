@@ -16,7 +16,8 @@
         <result property="type" column="type"/>
         <result property="parent" column="parent"/>
     </resultMap>
-
+    
+	<!-- Comment 작성  -->
     <insert id="insertComment" parameterType="com.q1.blog.vo.CommentVo" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO comments ( 
 		 user_id
@@ -46,9 +47,15 @@
 		</if>
 		 ) 
 	</insert>
- 
-    <select id="selectCommentList" parameterType="java.util.HashMap" resultMap="resultPostVo">
+	<!-- Comment 조회  --> 
+    <select id="selectCommentList" parameterType="java.util.HashMap" resultMap="resultCommentVo">
         SELECT * FROM comments LIMIT 10
     </select>
+    
+    
+    <!-- Comment 삭제  -->
+  	<delete id="deleteCommentPage">
+  				DELETE FROM comments WHERE id = #{id}
+  	</delete> 
 
 </mapper>

@@ -20,7 +20,11 @@ public class CommentDao extends SqlSessionDaoSupport {
 	public List<CommentVo> selectList() {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		return getSqlSession().selectList( "Comment.selectCommentList", paramMap);
-	}	
+	}
+	
+	public void delete(int id) {
+		getSqlSession().delete("Comment.deleteComment", id);
+	}
 	
 	
 }

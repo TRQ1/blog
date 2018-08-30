@@ -27,4 +27,12 @@ public class PostDao extends SqlSessionDaoSupport {
 		return getSqlSession().selectList("Post.selectPostList", paramMap);
 	}
 	
+	public void update(PostVo postVo) {
+		getSqlSession().update("Post.updatePostPage", postVo);
+	}
+	
+	public void delete(int id) {
+		getSqlSession().delete("Post.deletePostPage", id);
+	}
+	
 }

@@ -14,6 +14,7 @@
         <result property="status" column="status"/>
     </resultMap>
 
+	<!-- User 생성  -->
 	<insert id="insertUser" parameterType="com.q1.blog.vo.UserVo" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO users ( 
 		 loginid
@@ -35,9 +36,31 @@
 		
 		)
 	</insert>
-
+	<!-- User 정보 조회 -->
     <select id="selectUserList" parameterType="java.util.HashMap" resultMap="resultUserVo">
         SELECT * FROM users LIMIT 10
     </select>
+    
+    <!-- User 정보 수정  -->
+    <update id="updateUserInfo" parameterType="com.q1.blog.vo.UserVo">
+    	UPDATE users SET
+    	 password = #{password}
+    	, nickname = #{nickname}
+    	, email = #{email}
+    	, url = #{url}
+    	<if test="id == 1">
+    	, status = #{status}
+    	</if>
+    	WHERE id = #{id}
+    </update>
+    
+    <!-- User 정보 삭제  -->
+  	<delete id="deleteUserInfo">
+  		<if test="id == 1">
+  				DELETE FROM users
+  				WHERE id = #{id}
+  		</if>
+  	</delete>  
+    
 
 </mapper>
