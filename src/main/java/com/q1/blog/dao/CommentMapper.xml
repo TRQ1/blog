@@ -54,7 +54,7 @@
     
     
     <!-- Comment 삭제  -->
-  	<delete id="deleteCommentPage">
+  	<delete id="deleteComment">
   				DELETE FROM comments WHERE id = #{id}
   	</delete> 
 
