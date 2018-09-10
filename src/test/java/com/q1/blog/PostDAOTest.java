@@ -11,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.q1.blog.dao.PostDao;
+import com.q1.blog.dao.PostDaoIpml;
 import com.q1.blog.vo.PostVo;
 
 
@@ -21,7 +21,7 @@ import com.q1.blog.vo.PostVo;
 public class PostDAOTest {
 
 	@Autowired
-	protected PostDao postDao;
+	protected PostDaoIpml postDaoIpml;
 
 	@Test
 	public void insert() throws Exception {
@@ -42,12 +42,12 @@ public class PostDAOTest {
 		postVo.setType("journal");
 		postVo.setCommentCount(3);
 		
-		postDao.insert(postVo);
+		postDaoIpml.insert(postVo);
 	}
 	
 	@Test
 	public void selectList() {
-		List<PostVo> postList = postDao.selectList();
+		List<PostVo> postList = postDaoIpml.selectPostList();
 		
 		for ( PostVo postVo : postList ) {
 			System.out.println(postVo.getId());
@@ -55,15 +55,5 @@ public class PostDAOTest {
 		
 	}
 
-	@Test
-	public void selectPostList() {
-		List<PostVo> postList = postDao.selectList();
-		
-		for ( PostVo postVo : postList ) {
-			System.out.println(postVo.getId());
-		}
-		
-	}
-	
 	
 }

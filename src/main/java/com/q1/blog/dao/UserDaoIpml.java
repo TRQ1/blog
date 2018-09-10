@@ -9,7 +9,6 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.q1.blog.vo.PostVo;
 import com.q1.blog.vo.UserVo;
 
 @Repository
