@@ -11,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.q1.blog.dao.CommentDao;
+import com.q1.blog.dao.CommentDaoIpml;
 import com.q1.blog.vo.CommentVo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,7 +20,7 @@ import com.q1.blog.vo.CommentVo;
 public class CommentDAOTest {
 	
 	@Autowired
-	protected CommentDao commentDao;
+	protected CommentDaoIpml commentDaoIpml;
 	
 	@Test
 	public void insert() throws Exception {
@@ -38,12 +38,12 @@ public class CommentDAOTest {
 		commentVo.setContent("test nnnn");
 		commentVo.setType("comment");
 		
-		commentDao.insert(commentVo);
+		commentDaoIpml.insertComment(commentVo);
 	}
 	
 	@Test
 	public void selectList() {
-		List<CommentVo> commentList = commentDao.selectList();
+		List<CommentVo> commentList = commentDaoIpml.selectCommentList();
 		
 		for ( CommentVo commentVo : commentList ) {
 			System.out.println(commentVo.getId());
