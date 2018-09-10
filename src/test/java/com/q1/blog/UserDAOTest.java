@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.q1.blog.vo.UserVo;
-import com.q1.blog.dao.UserDao;
+import com.q1.blog.dao.UserDaoIpml;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,7 +19,7 @@ import com.q1.blog.dao.UserDao;
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
 public class UserDAOTest {
 	@Autowired
-	protected UserDao userDao;
+	protected UserDaoIpml userDaoIpml;
 	
 	@Test
 	public void insert() {
@@ -30,12 +30,12 @@ public class UserDAOTest {
 		userVo.setEmail("test@test.com");
 		userVo.setUrl("blog.q1.com");
 		
-		userDao.insert(userVo);
+		userDaoIpml.insertUser(userVo);
 	}
 	
 	@Test
 	public void selectList() {
-		List<UserVo> userList = userDao.selectList();
+		List<UserVo> userList = userDaoIpml.selectList();
 		
 		for ( UserVo userVo : userList ) {
 			System.out.println(userVo.getId());

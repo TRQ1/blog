@@ -1,32 +1,33 @@
 package com.q1.blog.dao;
 
-import java.util.HashMap;
+import com.q1.blog.vo.UserVo;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Map;
 
-import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.support.SqlSessionDaoSupport;
+public interface UserDao {
+	public void insertUser(UserVo userVo);
+	
+	public List<UserVo> selectList();
+	
+	public UserVo selectByUsername(String userId);
 
-import com.q1.blog.vo.UserVo;
+	public void update(UserVo userVo);
+	
+	public void delete(int id);
+	
+    UserVo findByEmail(String email);
 
+    UserVo findByUsername(String userId);
 
-public class UserDao extends SqlSessionDaoSupport {
-	private SqlSessionTemplate sqlSessionTemplate;
-	
-	public void insert(UserVo userVo) {
-		getSqlSession().insert("User.insertUser", userVo);
-	}
-	
-	public List<UserVo> selectList() {
-		Map<String, String> paramMap = new HashMap<String, String>();
-		return getSqlSession().selectList( "User.selectUserList", paramMap);
-	}
-	
-	public void update(UserVo userVo) {
-		getSqlSession().update("User.updateUserInfo", userVo);
-	}
-	
-	public void delete(int id) {
-		getSqlSession().delete("User.deleteUserInfo", id);
-	}
+    boolean emailExists(String email);
+
+    boolean nicknameExists(String nickname);
+
+    void register(UserVo userVo);
+
+    void changeProfileInfo(UserVo newProfileInfo);
+
+    boolean isAdmin();
 }
