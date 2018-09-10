@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="Post">
+    <resultMap id="resultPostVo" type="com.q1.blog.vo.PostVo">
+        <id property="id" column="id" />
+        <result property="userId" column="user_id"/>
+        <result property="toDate" column="todate"/>
+        <result property="toDateGmt" column="todategmt"/>
+        <result property="content" column="content" />
+        <result property="excerpt" column="excerpt" />
+        <result property="status" column="status"/>
+        <result property="commentStatus" column="comment_status"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="modified" column="modified"/>
+        <result property="modifiedGmt" column="modified_gmt"/>
+        <result property="type" column="type"/>
+        <result property="parent" column="parent"/>
+        <result property="commentCount" column="commentcount"/>
+    </resultMap>
+   
+   	<!-- Post 생성 --> 
+    <insert id="insertPost" parameterType="com.q1.blog.vo.PostVo" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO posts ( 
+		 user_id
+		, todate
+		, todate_gmt
+		, content
+		, title
+		, excerpt
+		, status
+		, comment_status
+		, password
+		, name
+		, modified
+		, modified_gmt
+		, type
+		<if test="parent != null and parent != ''">
+		, parent
+		</if>
+		, comment_count 
+		
+		) VALUES ( 
+		
+		  #{userId}
+		 , now()
+		 , #{toDateGmt}
+		 , #{content}
+		 , #{title}
+		 , #{excerpt}
+		 , #{status}
+		 , #{commentStatus}
+		 , #{password}
+		 , #{name}
+		 , now()
+		 , #{modifiedGmt}
+		 , #{type}
+		 <if test="parent != null and parent != ''">
+		 , #{parent}
+		 </if>
+		 , #{commentCount} 
+		 )
+	</insert>
+
+	<!-- Post 페이지 조회  -->
+    <select id="selectPostList" parameterType="java.util.HashMap" resultMap="resultPostVo">
+        SELECT * FROM posts LIMIT 10
+    </select>
+    
+    
+    <!-- Post 수정   -->
+    <update id="updatePostPage" parameterType="com.q1.blog.vo.PostVo">
+    	UPDATE posts SET
+    	 password = #{password}
+    	 <if test="title != null and title != ''">
+    		, title = #{title} 
+    	 </if>
+    	 <if test="content != null and content != ''">
+    		, content = #{content} 
+    	 </if>
+    	 <if test="excerpt != null and excerpt != ''">
+    	 	, excerpt = #{excerpt}
+    	 </if>
+    	 <if test="status != null and status != ''">
+    	 	, status = #{status}
+    	 </if>
+    	, modified = now()
+    	, modified_gmt = now()
+    	WHERE id = #{id}
+    </update>
+    
+    <!-- Post 삭제  -->
+  	<delete id="deletePostPage">
+  				DELETE FROM posts WHERE id = #{id}
+  	</delete>  
+  
+
+</mapper>

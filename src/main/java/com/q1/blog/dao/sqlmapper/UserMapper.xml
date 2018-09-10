@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="User">
+    <resultMap id="resultUserVo" type="com.q1.blog.vo.UserVo">
+        <id property="id" column="id" />
+        <result property="loginId" column="loginid"/>
+        <result property="password" column="password"/>
+        <result property="nickname" column="nickname"/>
+        <result property="email" column="email" />
+        <result property="url" column="url" />
+        <result property="regDate" column="regdate"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+	<!-- User 생성  -->
+	<insert id="insertUser" parameterType="com.q1.blog.vo.UserVo" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO users ( 
+		 loginid
+		, password
+		, nickname
+		, email
+		, url
+		, regdate
+		, status
+		) VALUES ( 
+		
+		 #{loginId}
+		, #{password}
+		, #{nickname}
+		, #{email}
+		, #{url}
+		, now()
+		, #{status}
+		
+		)
+	</insert>
+	<!-- User 정보 조회 -->
+    <select id="selectUserList" parameterType="java.util.HashMap" resultMap="resultUserVo">
+        SELECT * FROM users LIMIT 10
+    </select>
+   
+    <select id="selectByUsername" parameterType="String" resultMap="resultUserVO">
+    	SELECT * FROM users WHERE loginid= #{id} LIMIT 1
+    </select>
+     
+    <!-- User 정보 수정  -->
+    <update id="updateUserInfo" parameterType="com.q1.blog.vo.UserVo">
+    	UPDATE users SET
+    	 password = #{password}
+    	, nickname = #{nickname}
+    	, email = #{email}
+    	, url = #{url}
+    	<if test="id == 1">
+    	, status = #{status}
+    	</if>
+    	WHERE id = #{id}
+    </update>
+    
+    <!-- User 정보 삭제  -->
+  	<delete id="deleteUserInfo">
+  		<if test="id == 1">
+  				DELETE FROM users
+  				WHERE id = #{id}
+  		</if>
+  	</delete>  
+    
+
+</mapper>

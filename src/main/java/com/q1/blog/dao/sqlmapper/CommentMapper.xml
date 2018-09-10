@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="User">
+    <resultMap id="resultCommentVo" type="com.q1.blog.vo.CommentVo">
+        <id property="id" column="id" />
+        <result property="userId" column="user_id"/>
+        <result property="postId" column="post_id"/>
+        <result property="toDate" column="todate"/>
+        <result property="toDateGmt" column="todategmt"/>
+        <result property="author" column="author"/>
+        <result property="authorEmail" column="author_email"/>
+        <result property="authorUrl" column="author_url"/>
+        <result property="content" column="content" />
+        <result property="type" column="type"/>
+        <result property="parent" column="parent"/>
+    </resultMap>
+    
+	<!-- Comment 작성  -->
+    <insert id="insertComment" parameterType="com.q1.blog.vo.CommentVo" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO comments ( 
+		 user_id
+		, post_id
+		, todate
+		, todate_gmt
+		, author
+		, authror_email
+		, content
+		, type
+		<if test="parent != null and parent != ''">
+		, parent
+		</if>
+		) VALUES ( 
+		
+		 #{userId}
+		, #{postId}
+		, NOW()
+		, #{toDateGmt}
+		, #{author}
+		, #{authorEmail}
+		, #{authorUrl}
+		, #{content}
+		, #{type}
+		<if test="parent != null and parent != ''">
+		, #{parent}
+		</if>
+		 ) 
+	</insert>
+	<!-- Comment 조회  --> 
+    <select id="selectCommentList" parameterType="java.util.HashMap" resultMap="resultCommentVo">
+        SELECT * FROM comments LIMIT 10
+    </select>
+    
+    
+    <!-- Comment 삭제  -->
+  	<delete id="deleteComment">
+  				DELETE FROM comments WHERE id = #{id}
+  	</delete> 
+
+</mapper>

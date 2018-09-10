@@ -51,7 +51,7 @@
 	    <beans:property name="dataSource" ref="dataSource" />
 	    <beans:property name="typeAliasesPackage" value="com.q1.blog" />
 	    <beans:property name="configLocation" value="/WEB-INF/mybatis-config.xml"/>
-	    <beans:property name="mapperLocations" value="classpath*:com/q1/blog/dao/PostMapper.xml" />
+	    <beans:property name="mapperLocations" value="classpath*:com/q1/blog/dao/sqlmapper/*.xml" />
 	</beans:bean>
 
 	<!-- SessionTemplate setting -->	
@@ -60,17 +60,17 @@
 	</beans:bean>
 	
 	<beans:bean id="UserVO" class="com.q1.blog.vo.UserVo"></beans:bean>
-	<beans:bean id="UserDAO" class="com.q1.blog.dao.UserDao">
+	<beans:bean id="UserDAO" class="com.q1.blog.dao.UserDaoIpml">
 		<beans:property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</beans:bean>
 
 	<beans:bean id="PostVO" class="com.q1.blog.vo.PostVo"></beans:bean>
-	<beans:bean id="PostDAO" class="com.q1.blog.dao.PostDao">
+	<beans:bean id="PostDAO" class="com.q1.blog.dao.PostDaoIpml">
 		<beans:property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</beans:bean>
 	
 	<beans:bean id="CommentVO" class="com.q1.blog.vo.CommentVo"></beans:bean>
-	<beans:bean id="CommentDAO" class="com.q1.blog.dao.CommentDao">
+	<beans:bean id="CommentDAO" class="com.q1.blog.dao.CommentDaoIpml">
 		<beans:property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</beans:bean>
 </beans:beans>
