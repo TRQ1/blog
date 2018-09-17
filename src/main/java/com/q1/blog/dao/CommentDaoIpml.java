@@ -6,15 +6,17 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.q1.blog.utils.AbstractDao;
 import com.q1.blog.vo.CommentVo;
 
 @Repository
-public class CommentDaoIpml extends SqlSessionDaoSupport implements CommentDao {
+public class CommentDaoIpml extends AbstractDao implements CommentDao {
 
-	@Override
+	@Transactional
 	public void insertComment(CommentVo commentVo) {
 		getSqlSession().insert("Comment.insertComment", commentVo);
 	}
