@@ -6,14 +6,17 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.q1.blog.utils.AbstractDao;
 import com.q1.blog.vo.PostVo;
 
 @Repository
-public class PostDaoIpml extends SqlSessionDaoSupport implements PostDao {
+public class PostDaoIpml extends AbstractDao implements PostDao {
 
+	@Transactional
 	public void insert(PostVo postVo) {
 		getSqlSession().insert("Post.insertPost", postVo);
 	}
