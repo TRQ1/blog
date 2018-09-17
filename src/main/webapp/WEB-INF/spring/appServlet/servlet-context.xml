@@ -18,7 +18,20 @@
     </beans:bean>
 
 	<beans:bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
-
+	
+	<!-- Create Interceptor -->
+    <beans:bean id="sessionHandlerInterceptor" class="com.q1.blog.utils.SessionHandlerInterceptor">
+    </beans:bean>
+    <!-- Set Interceptor -->
+    <interceptors>
+        <interceptor>
+            <mapping path="/admin/**"/>
+            <exclude-mapping path="/admin/vendor/**"/>
+            <exclude-mapping path="/admin/login/**"/>
+            <beans:ref bean="sessionHandlerInterceptor"/>
+        </interceptor>
+    </interceptors>	
+	
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
     <resources mapping="/**" location="/resources/blog/" />
     <resources mapping="/test/**" location="/resources/blog/" />
@@ -51,26 +64,26 @@
 	    <beans:property name="dataSource" ref="dataSource" />
 	    <beans:property name="typeAliasesPackage" value="com.q1.blog" />
 	    <beans:property name="configLocation" value="/WEB-INF/mybatis-config.xml"/>
-	    <beans:property name="mapperLocations" value="classpath*:com/q1/blog/dao/sqlmapper/*.xml" />
+	    <beans:property name="mapperLocations" value="classpath*:com/q1/blog/dao/sqlmapper/r.xml" />
 	</beans:bean>
 
 	<!-- SessionTemplate setting -->	
 	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</beans:bean>
-	
-	<beans:bean id="UserVO" class="com.q1.blog.vo.UserVo"></beans:bean>
-	<beans:bean id="UserDAO" class="com.q1.blog.dao.UserDaoIpml">
+<!--	<beans:property name="sqlSessionTemplate" ref="sqlSessionTemplate" /> -->
+	<beans:bean id="userVo" class="com.q1.blog.vo.UserVo"></beans:bean>
+	<beans:bean id="userDao" class="com.q1.blog.dao.UserDaoIpml">
 		<beans:property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</beans:bean>
 
-	<beans:bean id="PostVO" class="com.q1.blog.vo.PostVo"></beans:bean>
-	<beans:bean id="PostDAO" class="com.q1.blog.dao.PostDaoIpml">
+	<beans:bean id="postVo" class="com.q1.blog.vo.PostVo"></beans:bean>
+	<beans:bean id="postDao" class="com.q1.blog.dao.PostDaoIpml">
 		<beans:property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</beans:bean>
 	
-	<beans:bean id="CommentVO" class="com.q1.blog.vo.CommentVo"></beans:bean>
-	<beans:bean id="CommentDAO" class="com.q1.blog.dao.CommentDaoIpml">
+	<beans:bean id="commentVo" class="com.q1.blog.vo.CommentVo"></beans:bean>
+	<beans:bean id="commentDao" class="com.q1.blog.dao.CommentDaoIpml">
 		<beans:property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</beans:bean>
 </beans:beans>
