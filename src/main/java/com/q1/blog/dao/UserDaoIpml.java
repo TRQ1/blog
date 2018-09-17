@@ -6,17 +6,20 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.q1.blog.utils.AbstractDao;
 import com.q1.blog.vo.UserVo;
 
 @Repository
-public class UserDaoIpml extends SqlSessionDaoSupport implements UserDao {
+public class UserDaoIpml extends AbstractDao implements UserDao {
 	
 	@Transactional
 	public void insert(UserVo userVo) {
 		getSqlSession().insert("User.insertUser", userVo);
+		
 	}
 
 	@Override
