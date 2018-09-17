@@ -36,9 +36,6 @@ public class PostController {
 	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 
 	@Autowired
-	private UserDao userDao;
-	
-	@Autowired
 	private PostDao postDao;
 	
 

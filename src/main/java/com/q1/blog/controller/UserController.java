@@ -1,4 +1,4 @@
-package com.q1.blog;
+package com.q1.blog.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -24,23 +24,38 @@ import com.q1.blog.vo.UserVo;
 
 @Controller
 @SessionAttributes({"sessionUsername","sessionEmail"})
-public class AdminController {
-	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+public class UserController {
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserDao userDao;
-
+	
 	@Autowired
 	private UserVo userVo;
-	
-	
+
 	@RequestMapping(value = "/admin/login/login", method = RequestMethod.GET)
 	public String login(
 			@ModelAttribute("sessionUsername") String sessionUsername
 			, Model model) {
-	
+
+		System.out.println("["+sessionUsername+"]");
+		if ( sessionUsername == null || sessionUsername.equals("") ) {
+			// 로그인이 안되어 있는 상
+		} else {
+			// 로그인이 되어이 있는 상태
+			return "redirect:/admin/users/list";
+		}
 		
 		return "admin/login/login";
+	}
+	
+	@RequestMapping(value = "/admin/login/relogin", method = RequestMethod.GET)
+	public String relogin(
+			@SessionAttribute(required=false, value="sessionUsername") String sessionUsername
+			, Model model) {
+	
+		
+		return "admin/login/relogin";
 	}
 	
 	@RequestMapping(value = "/admin/login/doLogin", method = RequestMethod.POST)
@@ -52,6 +67,12 @@ public class AdminController {
 		
 		//userDAO.select(id)
 		UserVo userVo = userDao.selectByUsername(loginId);
+	
+		if ( userVo == null ) {
+			// 다시 로그인을 하세요.
+			return "admin/login/relogin";
+		}
+		
 		if ( userVo.getPassword().equals(passwd) ) {
 			// 로그인 성공
 			model.addAttribute("sessionUsername", userVo.getLoginId());
@@ -134,7 +155,7 @@ public class AdminController {
 
 		UserVo user = userDao.selectId(id);
 
-		model.addAttribute("userVO", id);
+		model.addAttribute("userVO", user);
 
 		System.out.println(sessionUsername);
 

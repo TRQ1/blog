@@ -1,4 +1,4 @@
-package com.q1.blog;
+package com.q1.blog.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

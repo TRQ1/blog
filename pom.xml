@@ -95,14 +95,6 @@
 		</dependency>
 		
 		<!-- DB -->
-		<!--
-		<dependency>
-		    <groupId>mysql</groupId>
-		    <artifactId>mysql-connector-java</artifactId>
-		    <version>8.0.12</version>
-		</dependency>
-		-->
-		
 		<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
 		<dependency>
     		<groupId>org.mariadb.jdbc</groupId>
@@ -216,9 +208,11 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
+                <!--
                 <configuration>
                     <mainClass>org.test.int1.Main</mainClass>
                 </configuration>
+                -->
             </plugin>
         </plugins>
     </build>
