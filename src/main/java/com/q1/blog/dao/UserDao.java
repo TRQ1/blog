@@ -11,6 +11,8 @@ public interface UserDao {
 	
 	public List<UserVo> selectList();
 	
+	public UserVo selectId(int id);
+	
 	public UserVo selectByUsername(String userId);
 
 	public void update(UserVo userVo);

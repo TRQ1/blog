@@ -23,6 +23,11 @@ public class UserDaoIpml extends SqlSessionDaoSupport implements UserDao {
 	public UserVo selectByUsername(String loginId) {
 		return getSqlSession().selectOne("User.selectByUsername", loginId);
 	}
+
+	@Override
+	public UserVo selectId(int id) {
+		return getSqlSession().selectOne("User.selectId", id);
+	}
 	
 	@Override
 	public List<UserVo> selectList() {

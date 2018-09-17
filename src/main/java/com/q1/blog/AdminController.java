@@ -25,12 +25,11 @@ import com.q1.blog.vo.UserVo;
 @Controller
 @SessionAttributes({"sessionUsername","sessionEmail"})
 public class AdminController {
-	
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
-	
+
 	@Autowired
 	private UserDao userDao;
-	
+
 	@Autowired
 	private UserVo userVo;
 	
@@ -80,6 +79,119 @@ public class AdminController {
 		model.addAttribute("sessionEmail", "");
 		
 		return "redirect:/admin/login/login";
+	}
+
+	@RequestMapping(value = "/admin/users/list", method = RequestMethod.GET)
+	public String list(
+			@ModelAttribute("sessionUsername") String sessionUsername
+			, @ModelAttribute("sessionEmail") String sessionEmail
+			, @RequestParam(value="loginid", defaultValue="") String username
+			, @RequestParam(value="id", defaultValue="0") int id
+			, Model model) {
+
+		if ( sessionUsername.equals("") ) {
+			return "redirect:/admin/login/login";
+		}
+
+		List<UserVo> userList = userDao.selectList();
+
+		model.addAttribute("userList", userList);
+
+		System.out.println(sessionUsername);
+
+		return "admin/users/list";
+	}
+
+	/**
+	 * 계정 관리 정보 확인 
+	 */
+	@RequestMapping(value = "/admin/users/info", method = RequestMethod.GET)
+	public String info(
+			@ModelAttribute("sessionUsername") String sessionUsername
+			, @RequestParam(value="id") int id
+			, @RequestParam(required=false, value="loginid") String username
+			, Model model) {
+
+		UserVo user = userDao.selectId(id);
+
+		model.addAttribute("userVO", user);
+
+		System.out.println(sessionUsername);
+
+		return "admin/users/info";
+	}
+
+
+	/**
+	 * 계정 정보 변경 
+	 */
+	@RequestMapping(value = "/admin/users/edit", method = RequestMethod.GET)
+	public String edit(
+			@ModelAttribute("sessionUsername") String sessionUsername
+			, @RequestParam(value="id") int id
+			, @RequestParam(required=false, value="username") String username
+			, Model model) {
+
+		UserVo user = userDao.selectId(id);
+
+		model.addAttribute("userVO", id);
+
+		System.out.println(sessionUsername);
+
+		return "admin/users/edit";
+	}
+
+
+	@RequestMapping(value = "/admin/users/add", method = RequestMethod.GET)
+	public String add(
+			@ModelAttribute("sessionUsername") String sessionUsername
+			, Model model) {
+
+		return "admin/users/add";
+	}
+
+	@RequestMapping(value = "/admin/users/doAdd", method = RequestMethod.POST)
+	public String doAdd(
+			@RequestParam(value="loginid") String loginid
+			, @RequestParam(value="email") String email
+			, @ModelAttribute("sessionUsername") String sessionUsername
+			, Model model) {
+
+		model.addAttribute("loginid", loginid);
+		model.addAttribute("email", email);
+
+		UserVo userVO = new UserVo();
+		userVO.setLoginId(loginid);
+		userVO.setEmail(email);
+
+		userDao.insertUser(userVO);
+
+		return "admin/users/doAdd";
+	}
+
+	@RequestMapping(value = "/admin/users/doEdit", method = RequestMethod.POST)
+	public String doAdd(
+			@RequestParam(value="id") int id
+			, @RequestParam(value="loginid") String loginid
+			, @RequestParam(value="email") String email
+			, @RequestParam(value="nickname") String nickname
+			, @RequestParam(value="passwd") String passwd
+			, @ModelAttribute("sessionUsername") String sessionUsername
+			, Model model) {
+
+		model.addAttribute("loginid", loginid);
+		model.addAttribute("email", email);
+
+		UserVo userVO = new UserVo();
+		userVO.setId(id);
+		userVO.setLoginId(loginid);
+		userVO.setEmail(email);
+		userVO.setNickname(nickname);
+		userVO.setPassword(passwd);
+
+		userDao.update(userVO);
+
+		return "admin/users/doAdd";
 	}
 	
 }
