@@ -58,7 +58,7 @@ public class PostController {
 		List<PostVo> postList = postDao.selectPostList();
 	
 		model.addAttribute("postList", postList);
-		return "admin/products/list";
+		return "admin/posts/list";
 	}
 
 	
