@@ -61,5 +61,7 @@ public class HomeController {
 		logger.info("This is the blog of footer message");
 		return "footer";	
 	}
+	
+	
 }
 	
