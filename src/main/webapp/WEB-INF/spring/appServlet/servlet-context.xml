@@ -64,7 +64,7 @@
 	    <beans:property name="dataSource" ref="dataSource" />
 	    <beans:property name="typeAliasesPackage" value="com.q1.blog" />
 	    <beans:property name="configLocation" value="/WEB-INF/mybatis-config.xml"/>
-	    <beans:property name="mapperLocations" value="classpath*:com/q1/blog/dao/sqlmapper/r.xml" />
+	    <beans:property name="mapperLocations" value="classpath*:com/q1/blog/dao/sqlmapper/*.xml" />
 	</beans:bean>
 
 	<!-- SessionTemplate setting -->	
