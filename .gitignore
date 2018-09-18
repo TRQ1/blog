@@ -3,6 +3,7 @@ target/
 Users/
 .settings/
 .externalToolBuilders/
+.idea/
 
 #file
 .metadata
@@ -28,3 +29,4 @@ local.properties
 ehthumbs.db
 Thumbs.db
 docs/*.bak
+*.iml
