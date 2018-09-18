@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.q1.blog.vo.UserVo;
 
 /**
  * Handles requests for the application home page.
@@ -61,7 +60,7 @@ public class HomeController {
 		logger.info("This is the blog of footer message");
 		return "footer";	
 	}
-	
-	
+
+
 }
 	
