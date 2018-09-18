@@ -53,7 +53,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/admin/login/doLogin", method = RequestMethod.POST)
 	public String doLogin(
-			@ModelAttribute("sessionUsername") String sessionUsername
+			@SessionAttribute(required=false, value="sessionUsername") String sessionUsername
 			, @RequestParam(value="loginid") String loginId
 			, @RequestParam(value="passwd") String passwd
 			, Model model) {
