@@ -1,16 +1,10 @@
 package com.q1.blog.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,16 +27,17 @@ public class UserController {
 	
 	@RequestMapping(value = "/admin/login/login", method = RequestMethod.GET)
 	public String login(
-			@ModelAttribute("sessionUsername") String sessionUsername
-			, Model model) {
+			@SessionAttribute(required=false, value="sessionUsername") String sessionUsername
+			, Model model){
 
 		System.out.println("["+sessionUsername+"]");
 		if ( sessionUsername == null || sessionUsername.equals("") ) {
-			// 로그인이 안되어 있는 상
+			// 로그인이 안되어 있는 상태
 		} else {
 			// 로그인이 되어이 있는 상태
 			return "redirect:/admin/users/list";
 		}
+		logger.info("This is the admin of head message");
 		
 		return "admin/login/login";
 	}
@@ -102,21 +97,14 @@ public class UserController {
 
 	@RequestMapping(value = "/admin/users/list", method = RequestMethod.GET)
 	public String list(
-			@ModelAttribute("sessionUsername") String sessionUsername
-			, @ModelAttribute("sessionEmail") String sessionEmail
-			, @RequestParam(value="loginid", defaultValue="") String username
+			 @RequestParam(value="loginid", defaultValue="") String username
 			, @RequestParam(value="id", defaultValue="0") int id
 			, Model model) {
 
-		if ( sessionUsername.equals("") ) {
-			return "redirect:/admin/login/login";
-		}
 
 		List<UserVo> userList = userDao.selectList();
 
 		model.addAttribute("userList", userList);
-
-		System.out.println(sessionUsername);
 
 		return "admin/users/list";
 	}
@@ -126,16 +114,13 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/admin/users/info", method = RequestMethod.GET)
 	public String info(
-			@ModelAttribute("sessionUsername") String sessionUsername
-			, @RequestParam(value="id") int id
+			 @RequestParam(value="id") int id
 			, @RequestParam(required=false, value="loginid") String username
 			, Model model) {
 
 		UserVo user = userDao.selectId(id);
 
 		model.addAttribute("userVO", user);
-
-		System.out.println(sessionUsername);
 
 		return "admin/users/info";
 	}
@@ -146,16 +131,13 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/admin/users/edit", method = RequestMethod.GET)
 	public String edit(
-			@ModelAttribute("sessionUsername") String sessionUsername
-			, @RequestParam(value="id") int id
+			 @RequestParam(value="id") int id
 			, @RequestParam(required=false, value="username") String username
 			, Model model) {
 
 		UserVo user = userDao.selectId(id);
 
 		model.addAttribute("userVO", user);
-
-		System.out.println(sessionUsername);
 
 		return "admin/users/edit";
 	}

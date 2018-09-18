@@ -26,7 +26,7 @@
     <interceptors>
         <interceptor>
             <mapping path="/admin/**"/>
-            <exclude-mapping path="/admin/vendor/**"/>
+            <exclude-mapping path="/admin/post/**"/>
             <exclude-mapping path="/admin/login/**"/>
             <beans:ref bean="sessionHandlerInterceptor"/>
         </interceptor>
@@ -34,6 +34,7 @@
 	
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
     <resources mapping="/**" location="/resources/blog/" />
+	<resources mapping="/admin/**" location="/resources/admin/" />
     <resources mapping="/test/**" location="/resources/blog/" />
 	<resources mapping="/resources/**" location="/resources/" />
 	
